@@ -9,5 +9,18 @@ module.exports = appInfo => {
   // add your config here
   config.middleware = [];
 
+  // 添加 view 配置
+  config.view = {
+    defaultViewEngine: 'nunjucks',
+    mapping: {
+      '.tpl': 'nunjucks',
+    },
+  };
+  // news config
+  config.news = {
+    pageSize: 5,
+    serverUrl: 'https://hacker-news.firebaseio.com/v0',
+  };
+
   return config;
 };
