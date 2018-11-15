@@ -22,5 +22,10 @@ module.exports = appInfo => {
     serverUrl: 'https://hacker-news.firebaseio.com/v0',
   };
 
+  // FIXME: dev config
+  config.security = {
+    csrf: false,
+  };
+
   return config;
 };
