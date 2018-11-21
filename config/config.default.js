@@ -27,5 +27,17 @@ module.exports = appInfo => {
     csrf: false,
   };
 
+  config.mysql = {
+    client: {
+      host: '',
+      port: '',
+      user: '',
+      password: '',
+      database: '',
+    },
+    app: true,
+    agent: false,
+  };
+
   return config;
 };
