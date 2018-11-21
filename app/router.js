@@ -5,7 +5,6 @@
  */
 module.exports = app => {
   const { router, controller } = app;
-  console.log(`${JSON.stringify(process.env)}&*&*&*&*`);
   router.get('/', controller.home.index);
   router.get('/news', 'news.list');
   router.get('/search', controller.test.index);

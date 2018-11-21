@@ -4,7 +4,6 @@ const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
   async index() {
-    // console.log(this.app.cities);
     this.ctx.body = 'hello controller';
   }
   async xxx() {

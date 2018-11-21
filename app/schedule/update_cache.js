@@ -12,7 +12,6 @@ class UpdateCache extends Subscription {
   }
 
   async subscribe() {
-    console.log(`*****${new Date()}`);
     const res = await this.ctx.curl('http://www.api.com/cache', {
       dataType: 'json',
     });
