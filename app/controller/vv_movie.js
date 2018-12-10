@@ -3,9 +3,9 @@
 const Controller = require('egg').Controller;
 
 class MovieController extends Controller {
-  async message() {
-    
-  }
+  // async initTask() {
+
+  // }
 }
 
 module.exports = MovieController;

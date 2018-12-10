@@ -20,5 +20,5 @@ module.exports = app => {
   router.get('/index', controller.home.xxx);
   // api for vote-video-by-chat
   // https://github.com/Kylin93CN/vote-video-by-chat
-  require('./router/voteVideo')(app);
+  require('./router/vv_router')(app);
 };
