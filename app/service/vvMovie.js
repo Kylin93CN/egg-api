@@ -5,13 +5,6 @@ const Service = require('egg').Service;
 class VvMovieService extends Service {
   // 初始化电影播放 并定时设置电影的当前时间
   async initTask() {
-    // const info = await this.app.mysql.select('movie', { // 搜索 post 表
-    //   where: { is_live: 'N' }, // WHERE 条件
-    //   // columns: ['author', 'title'], // 要查询的表字段
-    //   // orders: [['created_at','desc'], ['id','desc']], // 排序方式
-    //   limit: 10, // 返回数据量
-    //   offset: 0, // 数据偏移量
-    // });
     const info = await this.app.mysql.get('movie', {
       is_live: 'Y',
     });
@@ -19,21 +12,55 @@ class VvMovieService extends Service {
     // 存在的话
     if (info) {
       console.log(info);
+      const { id, total_time } = info;
+      let { current_time } = info;
+      current_time += 3;
+      if (current_time > total_time) {
+        // 此片播放结束，初始化 然后播放分数第一
+        const row = {
+          id,
+          is_live: 'N',
+          score: 0,
+          current_time: 0,
+        };
+        await this.app.mysql.update('movie', row);
+        const movies = await this.app.mysql.select('movie', {
+          orders: [[ 'score', 'desc' ]],
+          limit: 1,
+        });
+        const newId = movies[0].id;
+        const row1 = {
+          id: newId,
+          is_live: 'Y',
+        };
+        await this.app.mysql.update('movie', row1);
+      } else {
+        const row = {
+          id,
+          current_time,
+        };
+        await this.app.mysql.update('movie', row);
+      }
     } else {
       const movies = await this.app.mysql.select('movie', {
         orders: [[ 'score', 'desc' ]],
         limit: 1,
       });
-      const movie = movies[0];
-      const { id } = movie;
+      const { id } = movies[0];
       const row = {
         id,
         is_live: 'Y',
       };
-      await this.app.mysql.update('movie', row); // 更新 posts 表中的记录
+      await this.app.mysql.update('movie', row);
     }
     console.log(JSON.stringify(info));
-    // return { info };
+  }
+
+  async ping() {
+    const info = await this.app.mysql.get('movie', {
+      is_live: 'Y',
+    });
+    return info;
   }
 }
 
