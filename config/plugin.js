@@ -22,3 +22,8 @@ exports.redis = {
   package: 'egg-redis',
 };
 
+exports.cors = {
+  enable: true,
+  package: 'egg-cors',
+};
+
