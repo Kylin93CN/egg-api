@@ -6,22 +6,22 @@ class VvMovieService extends Service {
   // 初始化电影播放 并定时设置电影的当前时间
   async initTask() {
     const info = await this.app.mysql.get('movie', {
-      is_live: 'Y',
+      isLive: 'Y',
     });
 
     // 存在的话
     if (info) {
       console.log(info);
-      const { id, total_time } = info;
-      let { current_time } = info;
-      current_time += 3;
-      if (current_time > total_time) {
+      const { id, totalTime } = info;
+      let { currentTime } = info;
+      currentTime += 3;
+      if (currentTime > totalTime) {
         // 此片播放结束，初始化 然后播放分数第一
         const row = {
           id,
-          is_live: 'N',
+          isLive: 'N',
           score: 0,
-          current_time: 0,
+          currentTime: 0,
         };
         await this.app.mysql.update('movie', row);
         const movies = await this.app.mysql.select('movie', {
@@ -31,13 +31,13 @@ class VvMovieService extends Service {
         const newId = movies[0].id;
         const row1 = {
           id: newId,
-          is_live: 'Y',
+          isLive: 'Y',
         };
         await this.app.mysql.update('movie', row1);
       } else {
         const row = {
           id,
-          current_time,
+          currentTime,
         };
         await this.app.mysql.update('movie', row);
       }
@@ -49,7 +49,7 @@ class VvMovieService extends Service {
       const { id } = movies[0];
       const row = {
         id,
-        is_live: 'Y',
+        isLive: 'Y',
       };
       await this.app.mysql.update('movie', row);
     }
@@ -58,7 +58,7 @@ class VvMovieService extends Service {
 
   async ping() {
     const info = await this.app.mysql.get('movie', {
-      is_live: 'Y',
+      isLive: 'Y',
     });
     return info;
   }
