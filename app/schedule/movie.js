@@ -7,7 +7,7 @@ class Movie extends Subscription {
     return {
       interval: '3s', // 时间间隔 可用毫秒数或者字符串  或者使用cron
       type: 'all',
-      disable: false, // 定时失效
+      disable: true, // 定时失效
     };
   }
 

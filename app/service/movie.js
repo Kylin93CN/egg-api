@@ -62,6 +62,13 @@ class VvMovieService extends Service {
     });
     return info;
   }
+  async getList() {
+    const movieLists = await this.app.mysql.select('movie', {
+      columns: [ 'id', 'movieName', 'score' ], // 要查询的表字段
+      orders: [[ 'score', 'desc' ]],
+    });
+    return movieLists;
+  }
 }
 
 module.exports = VvMovieService;

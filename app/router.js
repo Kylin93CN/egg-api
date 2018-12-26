@@ -1,12 +1,11 @@
+// api for vote-video-by-chat
+// https://github.com/Kylin93CN/vote-video-by-chat
 'use strict';
 
 /**
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  // api for vote-video-by-chat
-  // https://github.com/Kylin93CN/vote-video-by-chat
-
   require('./router/routes')(app);
 
   // const { router, controller } = app;
