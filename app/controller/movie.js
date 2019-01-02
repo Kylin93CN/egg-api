@@ -24,8 +24,17 @@ class MovieController extends Controller {
   // 加分
   async addScore() {
     const ctx = this.ctx;
-    ctx.validate(getListRuler, ctx.request.body);
-    ctx.status = 200;
+    const data = ctx.request.body;
+    console.log(data);
+    try {
+      ctx.validate(getListRuler, data);
+    } catch (err) {
+      ctx.body = err.message;
+    }
+    const result = await ctx.service.movie.addScore(data);
+    if (result.affectedRows === 1) {
+      ctx.status = 200;
+    }
   }
 }
 
