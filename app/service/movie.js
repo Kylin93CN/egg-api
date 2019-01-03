@@ -43,7 +43,12 @@ class VvMovieService extends Service {
   }
 
   async ping() {
-    const info = await this.app.mysql.get('movie', { isLive: 'Y' });
+    const liveMovie = await this.app.mysql.get('movie', { isLive: 'Y' });
+    const movieList = await this.getList();
+    const info = {
+      liveMovie,
+      movieList,
+    };
     return info;
   }
   async getList() {
